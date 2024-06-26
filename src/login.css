@@ -1,0 +1,106 @@
+.image {
+  /* background-color: #ffffff; */
+  /* background-image: url("https://images.pexels.com/photos/1287145/pexels-photo-1287145.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"); */
+  /* background-image: url("https://images.pexels.com/photos/8566875/pexels-photo-8566875.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"); */
+  /* https://images.pexels.com/photos/8709430/pexels-photo-8709430.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1 */
+  /* background-image: url("https://images.pexels.com/photos/8709428/pexels-photo-8709428.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"); */
+  /* background-image: url("https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"); */
+
+  background-repeat: no-repeat;
+  /* background-size: contain; */
+  background-size: cover;
+  /* width: "100%"; */
+  /* height: "60vh"; */
+}
+#div2 {
+  background-image: url("https://images.pexels.com/photos/8566875/pexels-photo-8566875.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+
+  background-size: contain;
+}
+#content {
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+  /* height: 200px; */
+  /* border: 3px solid green; */
+}
+#header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+#content #footer .icons {
+  border: 1px solid white;
+  /* background-color: brown; */
+  border-radius: 25px;
+  /* padding: "40px"; */
+  /* width: 10%; */
+  padding: 5px;
+}
+
+#content #footer #f1 {
+  background-color: SlateBlue;
+}
+#content #footer #f2 {
+  background-color: DodgerBlue;
+}
+#content #footer #f3 {
+  background-color: Tomato;
+}
+.input1 {
+  /* width: 80%; */
+  padding: 0px 20px;
+
+  height: 45px;
+  border: 1px solid #efefef;
+  background-color: #efefef;
+  border-radius: 25px;
+  font-size: medium;
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.btn1 {
+  width: 100%;
+  height: 45px;
+  border: 1px solid #fb771a;
+  background-color: #fb771a;
+  border-radius: 25px;
+  font-size: large;
+  color: white;
+  font-size: 17;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-weight: 600;
+}
+
+/* #card { */
+/* display: flex;
+  justify-content: center;
+  align-items: center; */
+/* padding: 10px 25px; */
+/* padding: 20px; */
+/* height: 60vh;
+  width: 70%; */
+/* } */
+#continer_head {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* height: 80vh; */
+  width: 50%;
+}
+
+#answer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* height: 80vh; */
+  /* width: 50%; */
+}

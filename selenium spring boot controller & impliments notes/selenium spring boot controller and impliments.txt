@@ -1,0 +1,371 @@
+package com.example.Seleniumspringboot.contoller;
+
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.Seleniumspringboot.model.Title;
+import com.example.Seleniumspringboot.model.User;
+import com.example.Seleniumspringboot.model.User_count;
+import com.example.Seleniumspringboot.repository.Title_list;
+import com.example.Seleniumspringboot.repository.User_count_repo;
+import com.example.Seleniumspringboot.services.Implement;
+
+@RestController
+@CrossOrigin
+public class Controller {
+	LocalDate currentDate = LocalDate.now();
+	@Autowired
+	User_count_repo user_count_repo;
+
+	@Autowired
+	Implement imple;
+
+	@GetMapping("/")
+	List<User> getalluser() {
+		return imple.getall();
+	}
+
+	@GetMapping("/countlist")
+	List<User_count> getallcount() {
+		return imple.getcountlist();
+	}
+
+	@PostMapping("/log")
+	List<String> login(@RequestBody User u) {
+
+		List<String> y = imple.login(u);
+		System.out.println("get uid : " + u.getEmail() + "get pass : " + u.getUserid());
+
+		if (y == null) {
+			System.out.println("RequestBody failed");
+		}
+		return y;
+
+	}
+
+	@Autowired
+	Title_list title_data;
+
+	@PostMapping("/existingcount")
+	public void getallcountdata(@RequestBody List<User_count> userCounts) {
+
+		
+		 imple.getcountdata(userCounts);
+		
+		 
+//		User_count ob=new User_count();
+
+//		for(User_count x:user_count_repo.findAll()) {
+//			for(User_count uc:userCounts) {
+//			System.out.println(x.getUserid());
+//			System.out.println(uc.getUserid());
+//			if(x.getUserid().equals(uc.getUserid())) {
+//				System.out.println(uc.getCount());
+//				int count=uc.getCount();
+//			    int i=1;
+//				int newcount=(count - i);
+//				System.out.println("uc.getCount() : "+uc.getCount());
+//				System.out.println("newcount : "+newcount);
+//				if(newcount>=0) {
+//					x.setCount(newcount); 
+//					user_count_repo.save(x);
+//					
+//					System.out.println("x : "+x.getCount());
+//					System.out.println("finally");
+//				}
+//			}else {
+//				user_count_repo.save(uc);
+//			}
+//		}
+//		}
+
+		
+		    // Assuming user_count_repo.findAll() returns a List<User_count>
+//		    List<User_count> existingCounts = user_count_repo.findAll();
+//		    List<Title> title_list = title_data.findAll();
+//
+//		    for (User_count uc : userCounts) {
+//		        List<Title> listoftopics = uc.getListofTopics();
+//		        boolean found = false;
+//		        Set<String> uniqueTitles = new HashSet<>();
+//
+//		        for (User_count x : existingCounts) {
+//		            for (Title title : title_list) {
+//		                for (Title topics : listoftopics) {
+//		                    if (x.getUserid().equals(uc.getUserid()) && title.getTitle_name().equals(topics.getTitle_name())) {
+//		                        if (uniqueTitles.add(topics.getTitle_name())) {
+//		                            System.out.println("Title_name: " + topics.getTitle_name());
+//		                            System.out.println("Count: " + x.getCount());
+//		                            System.out.println("uniqueTitles: " + uniqueTitles);
+//
+//		                            found = true;
+//
+//		                            int i = 2;
+//
+//		                            if (x.getCount() >= i) {
+//		                                // Assuming countupdates method updates the count based on title_name and user_id
+//		                                user_count_repo.countupdates(title.getTitle_name(), uc.getUserid());
+//		                            }  else {
+//		                                x.setCount(3);
+//		                                user_count_repo.save(x);
+//		                            }
+//		                        }
+//		                    }
+//		                }
+//		            }
+//		        }
+//
+//		        if (!found) {
+//		            user_count_repo.save(uc);
+//		        }
+//		    }
+		    // Add any additional logic or return statements as needed
+		}
+
+	@PostMapping("/newcount")
+	User_count add(@RequestBody User_count us) {
+		System.out.println("successfully added");
+//		u.setUid(im.getalldata(u.getUid()));
+		return imple.addcount(us);
+	}
+}
+ *****************************************************************************************
+ *****************************************************************************************
+ *****************************************************************************************
+
+package com.example.Seleniumspringboot.services;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.Seleniumspringboot.model.Title;
+import com.example.Seleniumspringboot.model.User;
+import com.example.Seleniumspringboot.model.User_count;
+import com.example.Seleniumspringboot.repository.Title_list;
+import com.example.Seleniumspringboot.repository.User_count_repo;
+import com.example.Seleniumspringboot.repository.User_repo;
+
+@Service
+public class Implement implements Inter {
+	@Autowired
+	User_repo user_repo;
+
+	@Autowired
+	User_count_repo user_count_repo;
+
+	@Override
+	public List<User> getall() {
+		// TODO Auto-generated method stub
+		return user_repo.findAll();
+	}
+
+	@Override
+	public List<String> login(User u) {
+		System.out.println("login : " + user_repo.getlogin(u.getEmail(), u.getPhone_number()));
+
+		List<String> v = user_repo.getlogin(u.getEmail(), u.getPhone_number());
+		System.out.println("v : " + v);
+		return v;
+	}
+
+//	@Override
+//	public void getcountdata(List<User_count> ucList) {
+//		for (User_count uc : ucList) {
+//			// Assuming user_count_repo.findAll() returns a List<User_count>
+//			List<User_count> existingCounts = user_count_repo.findAll();
+//System.out.println(uc.getUserid()+"#####"+uc.getCount());
+//			boolean found = false;
+//
+//			for (User_count x : existingCounts) {
+//				System.out.println(x.getUserid()+" :: "+uc.getUserid());
+//				if (x.getUserid().equals(uc.getUserid())) {
+////					System.out.println("pass");
+//					found = true;
+////					System.out.println("x.getCountid() : " + x.getCountid());
+////					System.out.println("uc.getCountid() : " + uc.getCountid());
+//					int i = 1;
+//
+//					if (x.getCount() >= i) {
+//						System.out.println("count : " + x.getCount());
+//						user_count_repo.countupdates(uc.getUserid());
+//					} else {
+//						x.setCount(2);
+//						user_count_repo.save(x);
+//					}
+//					break; // Break the loop once the matching countid is found
+//				}
+//			}
+//
+//			if (!found) {
+//				user_count_repo.save(uc);
+//			}
+//			
+//		}
+//	}
+
+	@Autowired
+	Title_list title_data;
+
+//		for (User_count uc : ucList) {
+//			// Assuming user_count_repo.findAll() returns a List<User_count>
+//			List<User_count> existingCounts = user_count_repo.findAll();
+//			List<Title> title_list = title_data.findAll();
+//			List<Title> listoftopics = uc.getListofTopics();
+//			
+//			boolean found = false;
+//
+//			for (User_count x : existingCounts) {
+//				
+//				for (Title title : title_list) {
+//					for (Title topics : listoftopics) {
+//
+//						if (x.getUserid().equals(uc.getUserid())
+//								&& title.getTitle_name().equals(topics.getTitle_name())) {
+//
+//							found = true;
+//
+//							int i = 1;
+//
+//							if (x.getCount() >= i) {
+//								System.out.println("count : " + x.getCount());
+//								System.out.println("title_name : " + topics.getTitle_name());
+//								user_count_repo.countupdates(topics.getTitle_name(), uc.getUserid());
+//								break;
+//							} else {
+//								x.setCount(2);
+//								user_count_repo.save(x);
+//								break;
+//							}
+////							break; // Break the loop once the matching countid is found
+//						}
+//					}
+//				}
+//			}
+//
+//			if (!found) {
+//				user_count_repo.save(uc);
+//			}
+//		}
+
+//		for (User_count uc : ucList) {
+//			// Assuming user_count_repo.findAll() returns a List<User_count>
+//			List<User_count> existingCounts = user_count_repo.findAll();
+//			List<Title> title_list = title_data.findAll();
+//			List<Title> listoftopics = uc.getListofTopics();
+//
+//			boolean found = false;
+//			 Set<String> uniqueTitles = new HashSet<>();
+//			for (User_count x : existingCounts) {
+//
+//				for (Title title : title_list) {
+//					for (Title topics : listoftopics) {
+//
+//
+//						if (x.getUserid().equals(uc.getUserid())
+//								&& title.getTitle_name().equals(topics.getTitle_name())) {
+//							
+//							if (uniqueTitles.add(topics.getTitle_name())) {
+//								System.out.println("Add : "+uniqueTitles);
+//								
+//							System.out.println("Title_name : "+topics.getTitle_name());
+//							System.out.println("uniqueTitles : "+uniqueTitles.add(topics.getTitle_name()));
+//							found = true;
+//						
+//							int i = 2;
+//
+//							if (x.getCount() >= i) {
+//
+//								user_count_repo.countupdates(topics.getTitle_name(), uc.getUserid());
+////								if(topics.getTitle_name().equals(title.getTitle_name()) && x.getUserid().equals(uc.getUserid())) {
+////									x.setCount(x.getCount() - 1);
+////									user_count_repo.save(x);
+////									break;
+////								}
+////								break;
+//							} else {
+//								x.setCount(3);
+//								user_count_repo.save(x);
+////								break;	 
+//							}
+////							break; // Break the loop once the matching countid is found
+//						}
+//						}
+//					}
+//				}
+//			}
+//
+//			if (!found) {
+//				user_count_repo.save(uc);
+//			}
+//		}
+	@Override
+	public void getcountdata(List<User_count> ucList) {
+
+		ArrayList<Integer> countList = new ArrayList<>();
+
+		for (User_count uc : ucList) {
+			List<Title> listoftopics = uc.getListofTopics();
+
+			for (Title title : listoftopics) {
+
+				
+
+				try {
+					int count = user_count_repo.selectcount(title.getTitle_name(), uc.getUserid());
+					System.out.println(count);
+					if (count > 1) {
+						user_count_repo.countupdates(title.getTitle_name(), uc.getUserid());
+					}
+//					else if(count <=1){
+//						user_count_repo.setcount(title.getTitle_name(), uc.getUserid());
+//					}
+					 if(count == 1){
+							user_count_repo.setcount(title.getTitle_name(), uc.getUserid());
+						}
+				}catch(Exception e) {
+					System.out.println(e);
+					
+					user_count_repo.save(uc); 
+				}
+//	            countList.add(count);
+				
+//	            user_count_repo.save(uc); 
+
+			}
+
+		}
+
+		// Do something with the countList, such as logging or further processing
+//	    System.out.println("Counts for each title: " + countList);
+
+	}
+
+	@Override
+	public List<User_count> getcountlist() {
+		// TODO Auto-generated method stub
+		return user_count_repo.findAll();
+	}
+
+	@Override
+	public User_count addcount(User_count us) {
+		// TODO Auto-generated method stub
+		System.out.println("Successfully inserted");
+		return user_count_repo.save(us);
+
+	}
+
+}
